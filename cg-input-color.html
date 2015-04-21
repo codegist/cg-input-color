@@ -1,16 +1,18 @@
 <link href="../polymer/polymer.html" rel="import">
 <link href="../paper-shadow/paper-shadow.html" rel="import">
-<link href="../cg-lightdom-element/cg-lightdom-element.html" rel="import">
 
-<polymer-element name="cg-input-color" extends="cg-lightdom-element" attributes="label colors selected required">
+<polymer-element name="cg-input-color" attributes="label colors selected required">
     <template>
         <style>
             .color {
                 width:20px;
                 height:20px;
                 margin-right:5px;
-                border-radius:100%;
                 cursor:pointer;
+                outline:0;
+            }
+            .color .dot {
+                border-radius:100%;
             }
             .color-wrapper {
                 padding-bottom:10px;
@@ -19,18 +21,22 @@
         <input is="core-input" required?="{{required}}" hidden id="input" value="{{selected}}">
         <div layout horizontal wrap class="color-wrapper">
             <template repeat="{{colors as c}}">
-                <paper-shadow class="color"
-                              title="{{c.name}}"
-                              style="background-color:{{c.mask}}"
-                              data-value="{{c.mask}}"
-                              on-tap="{{_selectionChanged}}" animated></paper-shadow>
+                <div relative
+                     class="color"
+                     tabindex="0"
+                     title="{{c.name}}"
+                     data-value="{{c.mask}}"
+                     on-tap="{{_selectColor}}"
+                     on-focus="{{_selectColor}}">
+                    <paper-shadow class="dot" fit animated style="background-color:{{c.mask}}"></paper-shadow>
+                </div>
             </template>
         </div>
     </template>
     <script>
         Polymer("cg-input-color", {
             label:null,
-            required:false  ,
+            required:false,
             colors:null,
             selected:null,
             _decoratorElement:null,
@@ -38,19 +44,19 @@
             domReady:function(){
                 if(this.parentElement.tagName.toLowerCase() == "paper-input-decorator") {
                     this._decoratorElement = this.parentElement; // _decoratorElement thing's quite nasty..
+                    this._decoratorElement.input = this.$.input;
                     this.label = this._decoratorElement.getAttribute("label");
                 }
-                this._colors = [].slice.call(this.querySelectorAll(".color"));
-                this.selectedChanged();
+//                this.selectedChanged();
             },
             selectedChanged:function(){
-                this._colors.forEach(function(color){
-                    color.setZ(color.dataset.value == this.selected ? 3 : 0);
+                [].slice.call(this.shadowRoot.querySelectorAll(".color")).forEach(function(color){
+                    color.querySelector("paper-shadow").setZ(color.dataset.value == this.selected ? 3 : 0);
                 }.bind(this));
                 this._decoratorElement && this._decoratorElement.inputChanged();
                 this.fire('change', this.selected);
             },
-            _selectionChanged:function(e){
+            _selectColor:function(e){
                 this.selected = e.currentTarget.dataset.value;
             }
         });
