@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>cg-datetime-input Demo</title>
     <link rel="import" href="../paper-input/paper-input-decorator.html">
+    <link rel="import" href="../cg-datasource/cg-datasource-rest.html">
     <link rel="import" href="cg-input-color.html">
     <style>
         .demo {
@@ -33,6 +34,7 @@
 <body unresolved fullbleed layout vertical center center-justified>
 
 <template id="sandbox" is="auto-binding">
+    <cg-datasource-rest></cg-datasource-rest>
     <section layout vertical left>
         <h2>input select form demo required selected {{selected}}</h2>
         <section>
@@ -46,41 +48,41 @@
                 </paper-input-decorator>
             </div>
         </section>
-        <h2>input select form demo selected {{selected2}}</h2>
-        <section>
-            <div horizontal layout wrap class="party-info-form">
-                <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
-                    <cg-input-color colors="{{colors}}" selected="{{selected2}}"></cg-input-color>
-                </paper-input-decorator>
-                <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
-                    <input is="core-input">
-                </paper-input-decorator>
-            </div>
-        </section>
-        <h2>input select form demo selected {{selected2}}</h2>
-        <section>
-            <div vertical layout wrap class="party-info-form">
-                <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
-                    <cg-input-color colors="{{colors}}" selected="{{selected2}}"></cg-input-color>
-                </paper-input-decorator>
-                <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
-                    <input is="core-input">
-                </paper-input-decorator>
-            </div>
-        </section>
+        <!--<h2>input select form demo selected {{selected2}}</h2>-->
+        <!--<section>-->
+            <!--<div horizontal layout wrap class="party-info-form">-->
+                <!--<paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>-->
+                    <!--<cg-input-color colors="{{colors}}" selected="{{selected2}}"></cg-input-color>-->
+                <!--</paper-input-decorator>-->
+                <!--<paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>-->
+                    <!--<input is="core-input">-->
+                <!--</paper-input-decorator>-->
+            <!--</div>-->
+        <!--</section>-->
+        <!--<h2>input select form demo selected {{selected2}}</h2>-->
+        <!--<section>-->
+            <!--<div vertical layout wrap class="party-info-form">-->
+                <!--<paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>-->
+                    <!--<cg-input-color colors="{{colors}}" selected="{{selected2}}"></cg-input-color>-->
+                <!--</paper-input-decorator>-->
+                <!--<paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>-->
+                    <!--<input is="core-input">-->
+                <!--</paper-input-decorator>-->
+            <!--</div>-->
+        <!--</section>-->
     </section>
 </template>
 
 <script>
     window.addEventListener('template-bound', function(){
         var sandbox = document.getElementById('sandbox');
-        sandbox.colors = [
-            { name:"Blue", mask:"#0000ff"},
-            { name:"Red", mask:"#ff0000"},
-            { name:"Yellow", mask:"#ffff00"},
-            { name:"Green", mask:"#00ff00"}
-        ];
-        sandbox.selected = '#ffff00';
+//        sandbox.colors = [
+//            { name:"Blue", mask:"#0000ff"},
+//            { name:"Red", mask:"#ff0000"},
+//            { name:"Yellow", mask:"#ffff00"},
+//            { name:"Green", mask:"#00ff00"}
+//        ];
+        sandbox.selected = '#FF887C';
         sandbox.selected2 = null;
     });
 </script>

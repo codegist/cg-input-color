@@ -1,7 +1,8 @@
 <link href="../polymer/polymer.html" rel="import">
+<link href="../cg-base/cg-base.html" rel="import">
 <link href="../paper-shadow/paper-shadow.html" rel="import">
 
-<polymer-element name="cg-input-color" attributes="label colors selected required">
+<polymer-element name="cg-input-color" extends="cg-base" attributes="label colors selected required datarequest">
     <template>
         <style>
             .color {
@@ -40,24 +41,39 @@
             colors:null,
             selected:null,
             _decoratorElement:null,
-            _colors:[],
             domReady:function(){
                 if(this.parentElement.tagName.toLowerCase() == "paper-input-decorator") {
                     this._decoratorElement = this.parentElement; // _decoratorElement thing's quite nasty..
                     this._decoratorElement.input = this.$.input;
                     this.label = this._decoratorElement.getAttribute("label");
                 }
-//                this.selectedChanged();
+                if(this.colors == null) {
+                    console.log("[cg-input-color] no colors provided firing data request");
+                    this.fireDataRequest("color-list", null, function(response){
+                        this.colors = response.data;
+                        this.async(this.selectedChanged.bind(this), null, 10)
+                    }.bind(this));
+                }else{
+                    console.log("[cg-input-color] colors provided, using them");
+                }
             },
             selectedChanged:function(){
                 [].slice.call(this.shadowRoot.querySelectorAll(".color")).forEach(function(color){
-                    color.querySelector("paper-shadow").setZ(color.dataset.value == this.selected ? 3 : 0);
+                    color.querySelector("paper-shadow").setZ(this.selected && color.dataset.value == this.selected.mask ? 3 : 0);
                 }.bind(this));
                 this._decoratorElement && this._decoratorElement.inputChanged();
                 this.fire('change', this.selected);
             },
             _selectColor:function(e){
-                this.selected = e.currentTarget.dataset.value;
+                this.selected = this._getColorByMask(e.currentTarget.dataset.value);
+            },
+            _getColorByMask:function(mask){
+                for(var i =0; i< this.colors.length;i++){
+                    if(this.colors[i].mask == mask) {
+                        return this.colors[i];
+                    }
+                }
+                return null;
             }
         });
     </script>
