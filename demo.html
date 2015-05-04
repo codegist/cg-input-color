@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <title>cg-datetime-input Demo</title>
+    <link rel="import" href="../paper-input/paper-input-decorator.html">
+    <link rel="import" href="cg-datasource-testdata.html">
+    <link rel="import" href="cg-input-color.html">
+    <style>
+        .demo {
+            margin-boottom:60px;
+            min-height: 300px;
+        }
+        .demo-item {
+            padding: 2px;
+            min-height: 300px;
+        }
+        .blue {
+            background-color: blue;
+        }
+        .red {
+            background-color: red;
+        }
+        .yellow {
+            background-color: yellow;
+        }
+        .green {
+            background-color: green;
+        }
+    </style>
+</head>
+
+
+<body unresolved fullbleed layout vertical center center-justified>
+
+<template id="sandbox" is="auto-binding">
+    <cg-datasource-testdata></cg-datasource-testdata>
+    <div layout horizontal wrap>
+        <section layout vertical left>
+            <h2>With datas selected {{selected}}</h2>
+            <section>
+                <div horizontal layout wrap class="party-info-form">
+                    <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
+                        <cg-input-color required colors="{{colors}}" selected="{{selected}}"></cg-input-color>
+                    </paper-input-decorator>
+                    <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
+                        <input is="core-input" required>
+                    </paper-input-decorator>
+                </div>
+            </section>
+        </section>
+        <section layout vertical left>
+            <h2>With datas not selected{{selected2}}</h2>
+            <section>
+                <div horizontal layout wrap class="party-info-form">
+                    <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
+                        <cg-input-color colors="{{colors}}" selected="{{selected2}}"></cg-input-color>
+                    </paper-input-decorator>
+                    <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
+                        <input is="core-input">
+                    </paper-input-decorator>
+                </div>
+            </section>
+        </section>
+        <section layout vertical left>
+            <h2>With datasource selected {{selected2}}</h2>
+            <section>
+                <div vertical layout wrap class="party-info-form">
+                    <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
+                        <cg-input-color dataTagPrefix="demo" selected="{{selected}}"></cg-input-color>
+                    </paper-input-decorator>
+                    <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
+                        <input is="core-input">
+                    </paper-input-decorator>
+                </div>
+            </section>
+        </section>
+        <section layout vertical left>
+            <h2>With datasource not selected {{selected2}}</h2>
+            <section>
+                <div vertical layout wrap class="party-info-form">
+                    <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
+                        <cg-input-color dataTagPrefix="demo" selected="{{selected2}}"></cg-input-color>
+                    </paper-input-decorator>
+                    <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
+                        <input is="core-input">
+                    </paper-input-decorator>
+                </div>
+            </section>
+        </section>
+    </div>
+</template>
+
+<script>
+    window.addEventListener('template-bound', function(){
+        var sandbox = document.getElementById('sandbox');
+        sandbox.colors = [
+            { name:"Blue", mask:"#A4BDFC"},
+            { name:"Red", mask:"#ff0000"},
+            { name:"Yellow", mask:"#ffff00"},
+            { name:"Green", mask:"#00ff00"}
+        ];
+        sandbox.selected = { name:"Blue", mask:"#A4BDFC"};
+        sandbox.selected2 = null;
+    });
+</script>
+
+</body>
+</html>

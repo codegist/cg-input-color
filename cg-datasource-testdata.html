@@ -1,0 +1,34 @@
+<link href="../polymer/polymer.html" rel="import">
+<link href="../cg-datasource/cg-datasource-base.html" rel="import">
+
+<polymer-element name="cg-datasource-testdata" extends="cg-datasource-base">
+    <script>
+        (function() {
+            console.log("##################################################");
+            console.log("cg-datasource-testdata INIT");
+            console.log("##################################################");
+
+            var colors = [
+                {name:"Bold Blue", mask:"#5484ED"},
+                {name:"Blue", mask:"#A4BDFC"},
+                {name:"Bold Green", mask:"#51B749"},
+                {name:"Yellow", mask:"#FBD75B"},
+                {name:"Red", mask:"#FF887C"},
+                {name:"Bold Red", mask:"#DC2127"},
+                {name:"Gray", mask:"#E1E1E1"}
+            ];
+
+            Polymer({
+                getProvidersMap:function(){
+                    return {
+                        'demo-color-list':this.getColors,
+                    };
+                },
+                getColors:function(callback, params){
+                    console.log("### Datasource[TestData] getColors(params:"+JSON.stringify(params)+")");
+                    return callback({success:true,data:colors});
+                }
+            });
+        })();
+    </script>
+</polymer-element>
