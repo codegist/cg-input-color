@@ -2,7 +2,7 @@
 <link href="../cg-base/cg-base.html" rel="import">
 <link href="../paper-shadow/paper-shadow.html" rel="import">
 
-<polymer-element name="cg-input-color" extends="cg-base" attributes="label colors selected required dataTagPrefix">
+<polymer-element name="cg-input-color" extends="cg-base" cgName="colors" attributes="label colors selected required dataTagPrefix">
     <template>
         <style>
             .color {
@@ -51,7 +51,7 @@
                 if(this.isDataAware()) {
                     console.log("[cg-input-color] no colors provided firing data request");
                     this.fireDataRequest({
-                        type:"color-list",
+                        type:"data",
                         success:function(response){
                             this.colors = response.data;
                             this.async(this.selectedChanged.bind(this), null, 10)
