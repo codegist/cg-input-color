@@ -48,7 +48,7 @@
                     this._decoratorElement.input = this.$.input;
                     this.label = this._decoratorElement.getAttribute("label");
                 }
-                if(this.isDataAware()) {
+                if(this.isDataAware() && this.colors == null) {
                     console.log("[cg-input-color] no colors provided firing data request");
                     this.fireDataRequest({
                         type:"data",
