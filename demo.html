@@ -3,7 +3,9 @@
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no">
     <title>cg-datetime-input Demo</title>
-    <link rel="import" href="../paper-input/paper-input-decorator.html">
+    <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../paper-input/paper-input-error.html">
+    <link rel="import" href="../paper-input/paper-input-container.html">
     <link rel="import" href="cg-datasource-testdata.html">
     <link rel="import" href="cg-input-color.html">
     <style>
@@ -33,58 +35,27 @@
 
 <body unresolved fullbleed layout vertical center center-justified>
 
-<template id="sandbox" is="auto-binding">
+<template is="dom-bind" id="sandbox">
     <cg-datasource-testdata></cg-datasource-testdata>
+    <!--<cg-input-color  class="paper-input-input" required colors="{{colors}}" selected="{{selected}}"></cg-input-color>-->
+    <cg-input-color  required selected="{{selected}}"></cg-input-color>
     <div layout horizontal wrap>
         <section layout vertical left>
             <h2>With datas selected {{selected}}</h2>
             <section>
                 <div horizontal layout wrap class="party-info-form">
-                    <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
-                        <cg-input-color required colors="{{colors}}" selected="{{selected}}"></cg-input-color>
-                    </paper-input-decorator>
-                    <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
-                        <input is="core-input" required>
-                    </paper-input-decorator>
+                    <paper-input-container always-float-label auto-validate attr-for-value="selected">
+                        <label>Color</label>
+                        <cg-input-color  class="paper-input-input" required="true" colors="{{colors}}" selected="{{selected}}"></cg-input-color>
+                        <paper-input-error>input is required!</paper-input-error>
+                    </paper-input-container>
                 </div>
-            </section>
-        </section>
-        <section layout vertical left>
-            <h2>With datas not selected{{selected2}}</h2>
-            <section>
                 <div horizontal layout wrap class="party-info-form">
-                    <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
-                        <cg-input-color colors="{{colors}}" selected="{{selected2}}"></cg-input-color>
-                    </paper-input-decorator>
-                    <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
-                        <input is="core-input">
-                    </paper-input-decorator>
-                </div>
-            </section>
-        </section>
-        <section layout vertical left>
-            <h2>With datasource selected {{selected2}}</h2>
-            <section>
-                <div vertical layout wrap class="party-info-form">
-                    <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
-                        <cg-input-color selected="{{selected}}"></cg-input-color>
-                    </paper-input-decorator>
-                    <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
-                        <input is="core-input">
-                    </paper-input-decorator>
-                </div>
-            </section>
-        </section>
-        <section layout vertical left>
-            <h2>With datasource not selected {{selected2}}</h2>
-            <section>
-                <div vertical layout wrap class="party-info-form">
-                    <paper-input-decorator label="Color" floatingLabel error="input is required!" autoValidate>
-                        <cg-input-color selected="{{selected2}}"></cg-input-color>
-                    </paper-input-decorator>
-                    <paper-input-decorator label="DNI" floatingLabel error="input is required!" autoValidate>
-                        <input is="core-input">
-                    </paper-input-decorator>
+                    <paper-input-container always-float-label auto-validate attr-for-value="selected">
+                        <label>Color</label>
+                        <cg-input-color  class="paper-input-input" required="true" colors="{{colors}}"></cg-input-color>
+                        <paper-input-error>input is required!</paper-input-error>
+                    </paper-input-container>
                 </div>
             </section>
         </section>
@@ -92,7 +63,7 @@
 </template>
 
 <script>
-    window.addEventListener('template-bound', function(){
+    window.addEventListener('WebComponentsReady', function() {
         var sandbox = document.getElementById('sandbox');
         sandbox.colors = [
             { name:"Blue", mask:"#A4BDFC"},

@@ -1,14 +1,29 @@
 <link href="../polymer/polymer.html" rel="import">
-<link href="../cg-datasource/cg-datasource-base.html" rel="import">
+<link href="../cg-datasource/cg-datasource-base-behavior.html" rel="import">
+<link href="../cg-base/cg-base-behavior.html" rel="import">
 
-<polymer-element name="cg-datasource-testdata" extends="cg-datasource-base">
-    <script>
-        (function() {
-            console.log("##################################################");
-            console.log("cg-datasource-testdata INIT");
-            console.log("##################################################");
-
-            var colors = [
+<dom-module id="cg-datasource-testdata">
+</dom-module>
+<script>
+    Polymer({
+        is:'cg-datasource-testdata',
+        properties:{
+            providersMap:{
+                type:Function,
+                value:function(){
+                    return {
+                        'colors/data':this.getColors
+                    };
+                }
+            }
+        },
+        behaviors:[CG.DataSourceBaseBehavior],
+        ready:function(){
+            this.globals.dataAware = true;
+        },
+        getColors:function(options){
+            console.log("### Datasource[TestData] getColors(params:"+JSON.stringify(options.params)+")");
+            return options.success({success:true,data:[
                 {name:"Bold Blue", mask:"#5484ED"},
                 {name:"Blue", mask:"#A4BDFC"},
                 {name:"Bold Green", mask:"#51B749"},
@@ -16,19 +31,8 @@
                 {name:"Red", mask:"#FF887C"},
                 {name:"Bold Red", mask:"#DC2127"},
                 {name:"Gray", mask:"#E1E1E1"}
-            ];
+            ]});
+        }
+    });
+</script>
 
-            Polymer({
-                getProvidersMap:function(){
-                    return {
-                        'demo-color-list':this.getColors,
-                    };
-                },
-                getColors:function(callback, params){
-                    console.log("### Datasource[TestData] getColors(params:"+JSON.stringify(params)+")");
-                    return callback({success:true,data:colors});
-                }
-            });
-        })();
-    </script>
-</polymer-element>
