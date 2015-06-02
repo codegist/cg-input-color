@@ -1,9 +1,9 @@
-<link href="../polymer/polymer.html" rel="import">
-<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link href="../cg-base/cg-base-behavior.html" rel="import">
-<link href="../paper-material/paper-material.html" rel="import">
-<link href="cg-input-color-validator.html" rel="import">
+<link rel="import" href="../cg-base/cg-base-behavior.html">
+<link rel="import" href="../cg-base/cg-required-validator.html">
+<link rel="import" href="../cg-base/cg-validatable-behavior.html">
+<link rel="import" href="../paper-material/paper-material.html">
 
 <dom-module is="cg-input-color">
 <style>
@@ -26,7 +26,7 @@
     }
 </style>
 <template>
-    <cg-input-color-validator required="[[required]]"></cg-input-color-validator>
+    <cg-required-validator required="[[required]]"></cg-required-validator>
     <div class="color-wrapper">
         <template is="dom-repeat" items="{{colors}}" as="c">
             <div class="color"
@@ -68,10 +68,10 @@ Polymer({
         },
         validator: {
             type: String,
-            value: 'cg-input-color-validator'
+            value: 'cg-required-validator'
         }
     },
-    behaviors:[CG.BaseBehavior, Polymer.IronValidatableBehavior],
+    behaviors:[CG.BaseBehavior, CG.ValidatableBehavior],
     _decoratorElement:null,
     ready:function(){
         if(this.isDataAware() && this.colors == null) {
