@@ -35,7 +35,7 @@
                  data-value$="{{c.mask}}"
                  on-tap="_selectColor"
                  on-focus="_selectColor">
-                <paper-material class="dot" animated style$="[[computeStyle(c)]]"></paper-material>
+                <paper-material class="dot" animated style$="[[style('background-color', c.mask)]]"></paper-material>
             </div>
         </template>
     </div>
@@ -88,9 +88,6 @@ Polymer({
             console.log("[cg-input-color] colors provided, using them");
             this.selectedChanged();
         }
-    },
-    computeStyle:function(c){
-        return c ? "background-color:" + c.mask : "";
     },
     selectedChanged:function(){
         Array.prototype.forEach.call(Polymer.dom(this.root).querySelectorAll(".color"), function(color){
