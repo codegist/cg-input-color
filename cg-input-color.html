@@ -80,7 +80,7 @@ Polymer({
                 type:"data",
                 success:function(response){
                     this.colors = response.data;
-                    this.async(this.selectedChanged, 10)
+                    this.async(this.selectedChanged)
                 }.bind(this),
                 failure:function(response){}.bind(this)
             });
