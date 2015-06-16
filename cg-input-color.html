@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="../cg-base/cg-base-behavior.html">
+<link rel="import" href="../cg-behaviors/cg-base-behavior.html">
+<link rel="import" href="../cg-behaviors/cg-application-datasource-aware-behavior.html">
 <link rel="import" href="../cg-base/cg-required-validator.html">
 <link rel="import" href="../cg-base/cg-validatable-behavior.html">
 <link rel="import" href="../paper-material/paper-material.html">
@@ -45,9 +46,6 @@
 Polymer({
     is:"cg-input-color",
     properties:{
-        listensTo:{
-            value:[]
-        },
         cgName:{
             value:"colors"
         },
@@ -71,11 +69,11 @@ Polymer({
             value: 'cg-required-validator'
         }
     },
-    behaviors:[CG.BaseBehavior, CG.ValidatableBehavior],
+    behaviors:[CG.BaseBehavior, CG.ApplicationDataSourceAwareBehavior, CG.ValidatableBehavior],
     _decoratorElement:null,
     ready:function(){
-        if(this.isDataAware() && this.colors == null) {
-            console.log("[cg-input-color] no colors provided firing data request");
+        if(this.colors == null) {
+            console.log(this.toString(), "no colors provided firing data request");
             this.fireDataRequest({
                 type:"data",
                 success:function(response){
@@ -85,7 +83,7 @@ Polymer({
                 failure:function(response){}.bind(this)
             });
         }else{
-            console.log("[cg-input-color] colors provided, using them");
+            console.log(this.toString(), "colors provided, using them");
             this.selectedChanged();
         }
     },
