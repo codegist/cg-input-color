@@ -88,7 +88,7 @@ Polymer({
         }
     },
     selectedChanged:function(){
-        Array.prototype.forEach.call(Polymer.dom(this.root).querySelectorAll(".color"), function(color){
+        this.querySelectAllRoot(".color").forEach(function(color){
             color.querySelector(".dot").elevation = (this.selected && color.dataset.value == this.selected.mask ? 3 : 0);
         }.bind(this));
         this.fire('input', this.selected);
